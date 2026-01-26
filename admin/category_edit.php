@@ -19,13 +19,14 @@ if (!$category) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $kategori_adi = trim($_POST['kategori_adi']);
+    $kategori_adi_en = trim($_POST['kategori_adi_en']); // Yeni
     $sira = (int) $_POST['sira'];
 
     if (empty($kategori_adi)) {
         $error = "Kategori adı boş olamaz.";
     } else {
-        $stmt = $db->prepare("UPDATE kategoriler SET kategori_adi = ?, sira = ? WHERE id = ?");
-        if ($stmt->execute([$kategori_adi, $sira, $id])) {
+        $stmt = $db->prepare("UPDATE kategoriler SET kategori_adi = ?, kategori_adi_en = ?, sira = ? WHERE id = ?");
+        if ($stmt->execute([$kategori_adi, $kategori_adi_en, $sira, $id])) {
             header("Location: categories.php?msg=Kategori güncellendi");
             exit;
         } else {
@@ -75,10 +76,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <form method="POST" class="bg-antigravity-card border border-white/5 rounded-xl p-6 space-y-6">
             <div>
-                <label class="block text-sm font-medium text-gray-400 mb-2">Kategori Adı</label>
+                <label class="block text-sm font-medium text-gray-400 mb-2">Kategori Adı (Türkçe)</label>
                 <input type="text" name="kategori_adi" required
                     value="<?= htmlspecialchars($category['kategori_adi']) ?>"
                     class="w-full bg-black/20 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-antigravity-accent transition-colors">
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-blue-400 mb-2">Kategori Adı (İngilizce)</label>
+                <input type="text" name="kategori_adi_en"
+                    value="<?= htmlspecialchars($category['kategori_adi_en'] ?? '') ?>"
+                    class="w-full bg-black/20 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors">
             </div>
 
             <div>
