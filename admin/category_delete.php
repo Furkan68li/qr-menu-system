@@ -5,17 +5,33 @@ require_once '../auth.php';
 if (isset($_GET['id'])) {
     $id = (int) $_GET['id'];
 
-    // Güvenlik: Kategoriye bağlı ürün varsa silmeyi engelleme veya uyarı verme stratejisi izleyebiliriz.
-    // Şimdilik CASCADE yapısı veritabanında varsa direkt silinir, yoksa hata verebilir.
-    // Ancak veritabanı şemasında ON DELETE CASCADE tanımlı:
-    // FOREIGN KEY (kategori_id) REFERENCES kategoriler(id) ON DELETE CASCADE
-    // Bu yüzden kategoriyi silince ürünler de silinecek.
+    if ($id <= 0) {
+        header("Location: categories.php?err=Geçersiz ID");
+        exit;
+    }
 
-    $stmt = $db->prepare("DELETE FROM kategoriler WHERE id = ?");
-    if ($stmt->execute([$id])) {
-        header("Location: categories.php?msg=Kategori silindi");
+    // Kategorinin varlığını kontrol et
+    $check = $db->prepare("SELECT id FROM kategoriler WHERE id = ?");
+    $check->execute([$id]);
+    
+    if ($check->fetch()) {
+        // Eğer veritabanında CASCADE DELETE ayarlıysa, kategori silinince ürünler de silinir.
+        // Ayarlı değilse önce ürünleri silmek gerekebilir.
+        // Burada CASCADE olduğunu varsayıyoruz (önceki koddan çıkarımla), ancak hata yönetimi ekliyoruz.
+        $stmt = $db->prepare("DELETE FROM kategoriler WHERE id = ?");
+        
+        try {
+            if ($stmt->execute([$id])) {
+                header("Location: categories.php?msg=Kategori başarıyla silindi");
+            } else {
+                header("Location: categories.php?err=Kategori silinemedi");
+            }
+        } catch (PDOException $e) {
+            // Muhtemel FK kısıtlaması hatası
+            header("Location: categories.php?err=Kategori silinemedi: Bu kategoriye bağlı ürünler olabilir ve otomatik silme kapalı olabilir.");
+        }
     } else {
-        header("Location: categories.php?err=Silme işlemi başarısız");
+        header("Location: categories.php?err=Kategori bulunamadı");
     }
 } else {
     header("Location: categories.php");
