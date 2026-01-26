@@ -101,10 +101,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <p class="text-xs text-gray-500 mt-2">Düşük rakamlar menüde daha üstte gösterilir (Örn: 1, 2, 3).</p>
             </div>
 
-            <button type="submit"
-                class="w-full bg-antigravity-accent hover:bg-antigravity-accent-hover text-white font-semibold py-3 rounded-xl transition-all shadow-lg shadow-indigo-500/20 active:scale-[0.98]">
-                Kategoriyi Kaydet
-            </button>
+            <div class="flex items-center justify-end pt-4 border-t border-white/5">
+                <button type="submit"
+                    class="bg-antigravity-accent hover:bg-antigravity-accent-hover text-white font-semibold py-3 px-8 rounded-xl transition-all shadow-lg shadow-indigo-500/20 active:scale-[0.98] flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span>Kategoriyi Kaydet</span>
+                </button>
+            </div>
         </form>
     </div>
 

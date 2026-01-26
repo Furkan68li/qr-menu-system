@@ -212,18 +212,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
 
                 <div class="col-span-2">
-                    <label class="inline-flex items-center cursor-pointer group">
-                        <input type="checkbox" name="aktif" value="1" <?= $urun['aktif'] ? 'checked' : '' ?> class="sr-only peer">
-                        <div class="w-11 h-6 bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-antigravity-accent"></div>
-                        <span class="ml-3 text-sm font-medium text-gray-300 group-hover:text-white transition-colors">Ürün satışta (Aktif)</span>
+                    <label class="flex items-center gap-3 cursor-pointer group p-2 rounded-lg hover:bg-white/5 transition-colors w-full sm:w-auto">
+                        <div class="relative flex items-center">
+                            <input type="checkbox" name="aktif" value="1" <?= $urun['aktif'] ? 'checked' : '' ?> class="peer sr-only">
+                            <div class="w-6 h-6 border-2 border-gray-600 rounded bg-transparent peer-checked:bg-antigravity-accent peer-checked:border-antigravity-accent transition-all flex items-center justify-center">
+                                <svg class="w-4 h-4 text-white opacity-0 peer-checked:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+                                </svg>
+                            </div>
+                        </div>
+                        <span class="text-sm font-medium text-gray-300 group-hover:text-white transition-colors">Ürün Satışta (Aktif)</span>
                     </label>
                 </div>
             </div>
 
-            <button type="submit"
-                class="w-full bg-antigravity-accent hover:bg-antigravity-accent-hover text-white font-semibold py-3 rounded-xl transition-all shadow-lg shadow-indigo-500/20 active:scale-[0.98]">
-                Değişiklikleri Kaydet
-            </button>
+            <div class="flex items-center justify-end pt-4 border-t border-white/5">
+                <button type="submit"
+                    class="bg-antigravity-accent hover:bg-antigravity-accent-hover text-white font-semibold py-3 px-8 rounded-xl transition-all shadow-lg shadow-indigo-500/20 active:scale-[0.98] flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span>Değişiklikleri Kaydet</span>
+                </button>
+            </div>
         </form>
     </div>
 
