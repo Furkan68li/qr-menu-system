@@ -1,6 +1,6 @@
 <?php
 require_once '../baglan.php';
-require_once '../auth.php';
+require_once 'auth.php';
 
 // Kategorileri ve ürün sayılarını çek
 $stmt = $db->query("

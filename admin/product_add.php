@@ -1,6 +1,6 @@
 <?php
 require_once '../baglan.php';
-require_once '../auth.php';
+require_once 'auth.php';
 
 // Kategorileri çek (Dropdown için)
 $kategoriler = $db->query("SELECT * FROM kategoriler ORDER BY sira ASC")->fetchAll();

@@ -1,6 +1,6 @@
 <?php
 require_once '../baglan.php';
-require_once '../auth.php';
+require_once 'auth.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $kategori_adi = trim($_POST['kategori_adi']);

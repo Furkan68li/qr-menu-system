@@ -1,6 +1,6 @@
 <?php
 require_once '../baglan.php';
-require_once '../auth.php';
+require_once 'auth.php';
 
 if (!isset($_GET['id'])) {
     header("Location: categories.php");

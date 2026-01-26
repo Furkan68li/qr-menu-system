@@ -1,6 +1,6 @@
 <?php
 require_once '../baglan.php';
-require_once '../auth.php';
+require_once 'auth.php';
 
 // Ürünleri ve kategori bilgilerini çek
 $stmt = $db->query("
