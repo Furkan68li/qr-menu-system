@@ -8,7 +8,9 @@ $kategoriler = $db->query("SELECT * FROM kategoriler ORDER BY sira ASC")->fetchA
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $kategori_id = (int) $_POST['kategori_id'];
     $urun_adi = trim($_POST['urun_adi']);
+    $urun_adi_en = trim($_POST['urun_adi_en']); // Yeni
     $aciklama = trim($_POST['aciklama']);
+    $aciklama_en = trim($_POST['aciklama_en']); // Yeni
     $fiyat = (float) $_POST['fiyat'];
     $aktif = isset($_POST['aktif']) ? 1 : 0;
 
@@ -40,8 +42,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if (!$error) {
-        $stmt = $db->prepare("INSERT INTO urunler (kategori_id, urun_adi, aciklama, fiyat, gorsel_yolu, aktif) VALUES (?, ?, ?, ?, ?, ?)");
-        if ($stmt->execute([$kategori_id, $urun_adi, $aciklama, $fiyat, $gorsel_yolu, $aktif])) {
+        $stmt = $db->prepare("INSERT INTO urunler (kategori_id, urun_adi, urun_adi_en, aciklama, aciklama_en, fiyat, gorsel_yolu, aktif) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+        if ($stmt->execute([$kategori_id, $urun_adi, $urun_adi_en, $aciklama, $aciklama_en, $fiyat, $gorsel_yolu, $aktif])) {
             header("Location: products.php?msg=Ürün başarıyla eklendi");
             exit;
         } else {
@@ -93,10 +95,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             class="bg-antigravity-card border border-white/5 rounded-xl p-6 space-y-6">
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="col-span-2">
-                    <label class="block text-sm font-medium text-gray-400 mb-2">Ürün Adı</label>
+                <div class="col-span-1">
+                    <label class="block text-sm font-medium text-gray-400 mb-2">Ürün Adı (Türkçe)</label>
                     <input type="text" name="urun_adi" required
                         class="w-full bg-black/20 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-antigravity-accent transition-colors">
+                </div>
+                
+                <div class="col-span-1">
+                    <label class="block text-sm font-medium text-blue-400 mb-2">Ürün Adı (İngilizce)</label>
+                    <input type="text" name="urun_adi_en"
+                        class="w-full bg-black/20 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors">
                 </div>
 
                 <div>
@@ -117,10 +125,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         class="w-full bg-black/20 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-antigravity-accent transition-colors">
                 </div>
 
-                <div class="col-span-2">
-                    <label class="block text-sm font-medium text-gray-400 mb-2">Açıklama</label>
-                    <textarea name="aciklama" rows="3"
-                        class="w-full bg-black/20 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-antigravity-accent transition-colors"></textarea>
+                <div class="col-span-2 grid grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-400 mb-2">Açıklama (Türkçe)</label>
+                        <textarea name="aciklama" rows="3"
+                            class="w-full bg-black/20 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-antigravity-accent transition-colors"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-blue-400 mb-2">Açıklama (İngilizce)</label>
+                        <textarea name="aciklama_en" rows="3"
+                            class="w-full bg-black/20 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors"></textarea>
+                    </div>
                 </div>
 
                 <div class="col-span-2">
